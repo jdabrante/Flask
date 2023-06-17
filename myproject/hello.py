@@ -73,8 +73,6 @@ def hello(name=None):
 #         return do_the_login()
 #     return show_the_login_form()
 
-
-
 # @app.get('/login')
 # def login_get():
 #     return show_the_login_form()
@@ -92,6 +90,12 @@ def hello(name=None):
 #             return log_the_user_in(request.form['username'])
 #         else: 
 #             error = 'Invalid username/password'
-#     # the code below is executed if the request method
+#     # the code below is executed if the request methodF
 #     # was GET or the credentials were invalid
 #     return render_template('login.html', error=error)
+
+@app.route('/upload', methods = ['GET','POST'])
+def upload_file():
+    if request.method == 'POST':
+        f = request.file['the_file']
+        f.save('/var/www/uploads/uploaded_file.txt')

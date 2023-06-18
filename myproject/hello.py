@@ -1,6 +1,6 @@
 from __future__ import annotations
 from flask import Flask
-from flask import url_for
+from flask import url_for, abort, redirect
 from flask import request
 from flask import render_template
 from markupsafe import escape
@@ -94,8 +94,35 @@ def hello(name=None):
 #     # was GET or the credentials were invalid
 #     return render_template('login.html', error=error)
 
-@app.route('/upload', methods = ['GET','POST'])
-def upload_file():
-    if request.method == 'POST':
-        f = request.file['the_file']
-        f.save('/var/www/uploads/uploaded_file.txt')
+# Ejemplo de upload_file()
+
+# @app.route('/upload', methods = ['GET','POST'])
+# def upload_file():
+#     if request.method == 'POST':
+#         f = request.file['the_file']
+#         f.save('/var/www/uploads/uploaded_file.txt')
+
+# Para leer cookies
+
+# @app.route('/')
+# def index():
+#     username = request.cookies.get('username')
+
+# # Para guardar cookies
+
+# @app.route('/')
+# def index():
+#     resp = make_response(render_template(...))
+#     resp.set_cookie('username', 'the username')
+#     return resp
+
+# Redirecciones
+
+@app.route('/')
+def index():
+    return redirect(url_for('login'))
+
+@app.route('/login')
+def login():
+    abort(401)
+    this_is_never_executed()
